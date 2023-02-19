@@ -5,7 +5,7 @@ import {logo} from './assets'
 const App = () => {
   return (
     <BrowserRouter>
-      <header className='w-full flex justify-between items-center bg-white
+      <header className='w-full flex justify-between items-center bg-slate-600
         sm:px-8 px-4 py-4 border-b border-b-[#e6ebf4]'>
           <Link to='/'><img src={logo} alt='logo' className='w-28 object-contain'/></Link>
 
@@ -13,7 +13,7 @@ const App = () => {
             Create
           </Link>
       </header>
-      <main className='sm:p-8 px-4 py-8 w-full bg-[#a6a7ab] min-h-[calc(100vh-73px)]'>
+      <main className='sm:p-8 px-4 py-8 w-full bg-slate-900 min-h-[calc(100vh-73px)]'>
         <Routes>
           <Route path='/' element={<Home />}/>  
           <Route path='/create-post' element={<CreatePost />}/>  
