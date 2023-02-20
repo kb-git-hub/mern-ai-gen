@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {useNavigate} from "react-router-dom"
 
 import {preview} from '../assets'
@@ -15,6 +15,13 @@ const CreatePost = () => {
 
   const [generatingImg, setGeneratingImg] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [initialPromptPlaceHolder, setInitialPromptPlaceHolder] = useState('')
+
+  
+  useEffect(()=>{
+   const promptPlaceHolder = getRandomPrompt()
+    setInitialPromptPlaceHolder(promptPlaceHolder)
+  }, [])
 
   const styles = {
     section: 'max-w-7xl mx-auto',
@@ -32,9 +39,10 @@ const CreatePost = () => {
   const handleSubmit = () => {}
 
   const handleChange = e =>{
-    const input = (e.target.value)
-    setForm({...form, name: input})
-    console.log(form)
+    console.log(e.target.value)
+    const inputKey = (e.target.name)
+    const inputValue = (e.target.value)
+    setForm({...form, [inputKey]: inputValue})
   }
 
   const handleSurpriseMe =  () => {
@@ -65,15 +73,14 @@ const CreatePost = () => {
           <FormField
             labelName='Prompt'
             type='text'
-            name='Prompt'
-            placeholder={getRandomPrompt[Math.floor(Math.random() * 50)]}
+            name='prompt'
+            placeholder={initialPromptPlaceHolder}
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
             handleSurpriseMe={handleSurpriseMe}
           />
    
-
           <div className={styles.imgDiv}>
             {form.photo ? (
               <img
@@ -81,8 +88,6 @@ const CreatePost = () => {
                 alt={form.prompt}
                 className='w-full h-full object-contain'
               />
-
-
             ): (
               <img
                 src={preview}
