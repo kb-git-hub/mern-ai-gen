@@ -10,10 +10,10 @@ const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-const openai = new OpenAIApi(Configuration)
+const openai = new OpenAIApi(configuration)
 
 router.route("/").get((req, res) => {
-  res.send("Hello from Dall-E!")
+  res.status(200).json({ message: "Hello from Dall-E!" })
 })
 
 router.route("/").post(async (req, res) => {
@@ -32,7 +32,7 @@ router.route("/").post(async (req, res) => {
     res.status(200).json({ photo: image })
   } catch (error) {
     console.log(error)
-    res.status(500).send(error?.response.data.error.message)
+    res.status(500)
   }
 })
 
