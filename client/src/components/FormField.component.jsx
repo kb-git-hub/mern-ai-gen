@@ -2,13 +2,15 @@ import React from 'react'
 
 const FormField = (props) => {
   const {labelName, type, name, placeholder, 
-    value, handleChange, isSurpriseMe, handleSurpriseMe} = props
+    value, handleChange, isSurpriseMe, handleSurpriseMe, setPlaceHolderText} = props
 
   const classes = {
     formFields: `bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#6469ff] focus:border-[#6469ff] outline-none block w-full p-3`
   }
 
-  return (
+
+
+  return (          
     <div>
       <div className='flex items-center gap02 mb-2'>
         <label htmlFor={name} 
@@ -33,6 +35,7 @@ const FormField = (props) => {
         onChange={handleChange}
         required
         className={classes.formFields}
+        onFocus={setPlaceHolderText}
       />
     </div>
   )

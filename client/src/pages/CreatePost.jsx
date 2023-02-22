@@ -33,13 +33,12 @@ const CreatePost = () => {
     imgDiv: `relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center mt-2`,
     loaderDiv: `absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg`,
     generateBtn: `text-white bg-green-700 font-medium rounded-md text-sm min-w-full sm:w-auto px-5 py-2.5 text-center`,
-    shareBtn: `mt-3 text-white bg-slate-400 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center`
+    shareBtn: `mt-3 text-white bg-slate-400 font-medium rounded-md text-sm min-w-full sm:w-auto px-5 py-2.5 text-center bg-blue-600`
   }
 
   const handleSubmit = () => {}
 
   const handleChange = e =>{
-    console.log(e.target.value)
     const inputKey = (e.target.name)
     const inputValue = (e.target.value)
     setForm({...form, [inputKey]: inputValue})
@@ -65,20 +64,17 @@ const CreatePost = () => {
         const data = await response.json()
 
         setForm({...form, photo: `data:image/jpeg;base64,${data.photo}`})
-      } catch (err){
-        alert(err)
-      } finally{
-        setGeneratingImg(false)
-      }
-    } else{
-      alert('Please enter a prompt')
-    }
-
-
+      } catch (err){alert(err)} 
+      finally{setGeneratingImg(false)}
+    } else {alert('Please enter a prompt')}
   }
 
-  return (
+  const setPlaceHolderText = () =>{
+    if (form.prompt) return 
+    setForm({...form, prompt: initialPromptPlaceHolder})
+}
 
+  return (
     <section className={styles.section}>
       <div>
         <h1 className={styles.h1}>Create</h1>
@@ -104,6 +100,7 @@ const CreatePost = () => {
             handleChange={handleChange}
             isSurpriseMe
             handleSurpriseMe={handleSurpriseMe}
+            setPlaceHolderText={setPlaceHolderText}
           />
    
           <div className={styles.imgDiv}>
